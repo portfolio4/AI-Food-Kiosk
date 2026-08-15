@@ -1,0 +1,55 @@
+High level requirements:
+
+- We are building a AI restaurant kiosk app.
+- The user speaks into the kiosk to ask questions about the menu and place an order.
+- The frontend sends the audio to the backend using webrtc.
+- The backend processes the audio bytes and uses a Codex session to generate a response to the frontend.
+- The frontend speaks the response back to the user.
+
+------------------
+
+What we've already built:
+
+We've built the Rust web-rtc server at backend/simple_rtc.
+
+We've built the web-rtc frontend client at frontend/js/webrtc.js
+
+We've built a UI with menu and record button for speaking to the AI agent at frontend/kiosk.html
+
+We've gotten the frontend to stream live audio encoded in Opus format to the
+rust backend via AudioTrack.
+
+We've coded the backend to decode the audio bytes from the frontend and convert
+to text.
+
+We've gotten the backend to send the decoded audio bytes back to the
+frontend to display to the user.
+
+We've gotten the backend to spawn an AI agent that responds to the user's requests
+
+-------------------
+
+What to build next:
+
+Let's get the frontend to read the AI assistant's responses out loud to the user.
+
+This should be doable with `window.speechSynthesis.speak()`.
+
+However, if the user is currently in the middle of some speech (i.e. there
+is an uncommitted, pulsing text bubble), then wait until it's done before speaking.
+
+We also need to add `echoCancellation: true` to the microphone on the browser side
+so that we don't have echoes.
+
+---------------------------
+
+While we are speakNextAssistantResponse(), can we mute the microphone temporarily? This will prevent echoes
+
+--------------------------
+
+The browser's default voices are not good.
+Can you try to get kokoro-js integrated?
+Create a new file js/speak.js , have it contain a class KokoroSpeaker.
+The KokoroSpeaker constructor takes an optional voice name that defaults to
+"af_bella". And it has a single speak() function that will speak the
+text string passed in to it.

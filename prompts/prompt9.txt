@@ -1,0 +1,45 @@
+High level requirements:
+
+- We are building a AI restaurant kiosk app.
+- The user speaks into the kiosk to ask questions about the menu and place an order.
+- The frontend sends the audio to the backend using webrtc.
+- The backend processes the audio bytes and uses a Codex session to generate a response to the frontend.
+- The frontend speaks the response back to the user.
+
+------------------
+
+What we've already built:
+
+We've built the Rust web-rtc server at backend/simple_rtc.
+
+We've built the web-rtc frontend client at frontend/js/webrtc.js
+
+We've built a UI with menu and record button for speaking to the AI agent at frontend/kiosk.html
+
+We've gotten the frontend to stream live audio encoded in Opus format to the
+rust backend via AudioTrack.
+
+-------------------
+
+What to build next:
+
+We want the rust server to decode the audio's raw Opus chunks, feed into the Whisper
+model, and output the text transcript of the audio.
+
+We can do all of this in backend/src/main.rs for now. After it's working,
+we'll refactor it properly.
+
+Currently, we're printing out the rtp_packet.payload.len().
+Stop printing the len now and instead, pass the rtp_packet bytes to audiopus::Decoder::decode_float
+to convert to raw 16kHz mono PCM, which is the Whisper native standard.
+Then use the yamabiko-whisper crate to take the 16kHZ mono PCM slice and
+process it. Print out any commited_text and tentative_text.
+
+For yamabiko-whisper, you can download the required VAD model as
+ggml-silero-v6.2.0.bin from https://huggingface.co/ggml-org/whisper-vad .
+Save this under the backend/models/ directory.
+
+For yamabiko-whipser, you can use the ggml-base.bin from
+https://huggingface.co/ggerganov/whisper.cpp/tree/main as the whisper model.
+Also save this under the backend/models/ directory.
+

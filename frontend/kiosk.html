@@ -1,0 +1,224 @@
+<!doctype html>
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f9faf6">
+    <title>FreshCuisine Kiosk - AI Ordering</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;family=Work+Sans:wght@400;600&amp;display=swap"
+      rel="stylesheet"
+    >
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-fixed": "#111c2c",
+              "secondary-fixed-dim": "#c8c6c3",
+              "on-secondary": "#ffffff",
+              "on-tertiary-container": "#9ba6bc",
+              "surface-container-low": "#f3f4f1",
+              "primary-fixed-dim": "#a5d0b9",
+              "on-primary-fixed-variant": "#274e3d",
+              outline: "#717973",
+              "surface-container-lowest": "#ffffff",
+              background: "#f9faf6",
+              "primary-fixed": "#c1ecd4",
+              "primary-container": "#1b4332",
+              "on-primary": "#ffffff",
+              tertiary: "#1b2637",
+              "on-secondary-fixed-variant": "#474745",
+              "on-tertiary-fixed-variant": "#3c475a",
+              "tertiary-fixed": "#d8e3fa",
+              "surface-dim": "#dadad7",
+              "inverse-on-surface": "#f0f1ee",
+              "on-tertiary": "#ffffff",
+              "tertiary-fixed-dim": "#bcc7dd",
+              "surface-variant": "#e2e3e0",
+              "on-primary-container": "#86af99",
+              "tertiary-container": "#313c4e",
+              "secondary-fixed": "#e5e2df",
+              surface: "#f9faf6",
+              "on-secondary-fixed": "#1c1c1a",
+              primary: "#012d1d",
+              "outline-variant": "#c1c8c2",
+              "inverse-primary": "#a5d0b9",
+              "secondary-container": "#e2dfdc",
+              "on-primary-fixed": "#002114",
+              "on-secondary-container": "#636260",
+              "surface-bright": "#f9faf6",
+              "surface-container-high": "#e8e8e5",
+              "on-error": "#ffffff",
+              "on-background": "#1a1c1a",
+              error: "#ba1a1a",
+              secondary: "#5f5e5c",
+              "on-surface": "#1a1c1a",
+              "surface-container-highest": "#e2e3e0",
+              "on-error-container": "#93000a",
+              "inverse-surface": "#2f312f",
+              "surface-container": "#eeeeeb",
+              "surface-tint": "#3f6653",
+              "error-container": "#ffdad6",
+              "on-surface-variant": "#414844",
+            },
+            spacing: {
+              xs: "4px",
+              base: "8px",
+              sm: "12px",
+              md: "24px",
+              gutter: "24px",
+              lg: "40px",
+              xl: "64px",
+              "margin-edge": "32px",
+            },
+            fontFamily: {
+              "body-md": ["Work Sans", "sans-serif"],
+              "display-lg": ["Plus Jakarta Sans", "sans-serif"],
+              "label-bold": ["Work Sans", "sans-serif"],
+              "headline-md": ["Plus Jakarta Sans", "sans-serif"],
+              "headline-lg-mobile": ["Plus Jakarta Sans", "sans-serif"],
+              "headline-lg": ["Plus Jakarta Sans", "sans-serif"],
+              "price-display": ["Plus Jakarta Sans", "sans-serif"],
+              "body-lg": ["Work Sans", "sans-serif"],
+            },
+            fontSize: {
+              "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+              "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
+              "label-bold": ["14px", { lineHeight: "20px", letterSpacing: "0.05em", fontWeight: "600" }],
+              "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+              "headline-lg-mobile": ["28px", { lineHeight: "36px", fontWeight: "700" }],
+              "headline-lg": ["32px", { lineHeight: "40px", fontWeight: "700" }],
+              "price-display": ["22px", { lineHeight: "28px", fontWeight: "700" }],
+              "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+            },
+            keyframes: {
+              typing: {
+                "0%, 80%, 100%": { transform: "scale(0)" },
+                "40%": { transform: "scale(1)" },
+              },
+              "pulse-wash": {
+                "0%, 100%": { backgroundColor: "rgb(1 45 29 / 0)" },
+                "50%": { backgroundColor: "rgb(1 45 29 / 0.05)" },
+              },
+            },
+            animation: {
+              typing: "typing 1.4s infinite ease-in-out both",
+              "pulse-wash": "pulse-wash 2s infinite",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="relative flex min-h-screen flex-col overflow-hidden bg-background font-body-md text-on-background">
+    <!-- Desktop application header. -->
+    <header class="fixed top-0 z-40 hidden h-20 w-full bg-surface shadow-sm dark:bg-surface-dim md:block">
+      <nav class="mx-auto flex h-full w-full max-w-[1200px] items-center justify-between px-gutter" aria-label="Kiosk utilities">
+        <a class="font-headline-lg text-headline-lg font-bold text-primary dark:text-inverse-primary" href="#menu">FreshCuisine Kiosk</a>
+        <ul class="flex items-center gap-md">
+          <li>
+            <button class="rounded-full p-2 text-on-surface-variant transition-colors duration-150 hover:bg-surface-variant active:scale-95 dark:hover:bg-surface-container-highest" type="button" data-dialog-target="helpDialog" aria-label="Ordering help">
+              <span class="material-symbols-outlined" aria-hidden="true">help</span>
+            </button>
+          </li>
+          <li>
+            <button class="rounded-full p-2 text-on-surface-variant transition-colors duration-150 hover:bg-surface-variant active:scale-95 dark:hover:bg-surface-container-highest" type="button" data-dialog-target="settingsDialog" aria-label="Kiosk settings">
+              <span class="material-symbols-outlined" aria-hidden="true">settings</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Menu and voice-order workspace. -->
+    <main class="relative z-10 mx-auto mt-0 flex h-[calc(100vh-96px)] w-full max-w-[1200px] flex-1 flex-col gap-xl overflow-y-auto px-gutter pb-gutter md:mt-20 md:mb-0 md:h-[calc(100vh-80px)] md:overflow-hidden md:pb-0">
+      <div id="recordingOverlay" class="pointer-events-none absolute inset-0 z-0 rounded-xl opacity-0 transition-opacity duration-300 motion-safe:animate-pulse-wash" aria-hidden="true"></div>
+
+      <div class="relative z-10 grid h-full grid-cols-1 items-stretch gap-gutter md:grid-cols-12">
+        <!-- Scrollable daily menu. -->
+        <section id="menu" class="flex h-[700px] flex-col overflow-hidden rounded-xl border border-surface-container bg-surface-container-lowest shadow-[0_4px_20px_rgba(1,45,29,0.05)] md:col-span-7" aria-labelledby="menuHeading">
+          <header class="flex items-center justify-between border-b border-outline-variant bg-surface-container p-sm">
+            <h1 id="menuHeading" class="font-headline-md text-headline-md text-primary">Daily Menu</h1>
+            <p class="font-label-bold text-label-bold text-on-surface-variant">Updated Today</p>
+          </header>
+          <div class="relative flex-1 overflow-y-auto bg-surface p-lg">
+            <div class="space-y-xl">
+              <section aria-labelledby="burgersHeading">
+                <h2 id="burgersHeading" class="mb-md border-b-2 border-primary pb-sm font-display-lg text-display-lg text-primary">Burgers</h2>
+                <ul class="space-y-md">
+                  <li><article class="flex items-end justify-between border-b border-surface-variant pb-sm"><div><h3 class="font-headline-md text-headline-md text-on-background">Classic Cheeseburger</h3><p class="max-w-[80%] font-body-md text-body-md text-on-surface-variant">Beef patty, cheddar, lettuce, tomato, house sauce.</p></div><p class="font-price-display text-price-display text-primary">$8.99</p></article></li>
+                  <li><article class="flex items-end justify-between border-b border-surface-variant pb-sm"><div><h3 class="font-headline-md text-headline-md text-on-background">Double Smash</h3><p class="max-w-[80%] font-body-md text-body-md text-on-surface-variant">Two patties, double cheese, caramelized onions.</p></div><p class="font-price-display text-price-display text-primary">$11.49</p></article></li>
+                </ul>
+              </section>
+              <section aria-labelledby="shakesHeading">
+                <h2 id="shakesHeading" class="mb-md border-b-2 border-primary pb-sm font-display-lg text-display-lg text-primary">Shakes</h2>
+                <ul class="space-y-md">
+                  <li><article class="flex items-end justify-between border-b border-surface-variant pb-sm"><div><h3 class="font-headline-md text-headline-md text-on-background">Vanilla Bean</h3><p class="max-w-[80%] font-body-md text-body-md text-on-surface-variant">Real vanilla bean ice cream, whipped cream.</p></div><p class="font-price-display text-price-display text-primary">$4.99</p></article></li>
+                  <li><article class="flex items-end justify-between border-b border-surface-variant pb-sm"><div><h3 class="font-headline-md text-headline-md text-on-background">Rich Chocolate</h3><p class="max-w-[80%] font-body-md text-body-md text-on-surface-variant">Dark chocolate ice cream, chocolate syrup.</p></div><p class="font-price-display text-price-display text-primary">$5.49</p></article></li>
+                </ul>
+              </section>
+              <section aria-labelledby="sidesHeading">
+                <h2 id="sidesHeading" class="mb-md border-b-2 border-primary pb-sm font-display-lg text-display-lg text-primary">Sides</h2>
+                <ul class="space-y-md">
+                  <li><article class="flex items-end justify-between border-b border-surface-variant pb-sm"><div><h3 class="font-headline-md text-headline-md text-on-background">Fries</h3><p class="max-w-[80%] font-body-md text-body-md text-on-surface-variant">Crispy golden fries seasoned with sea salt.</p></div><p class="font-price-display text-price-display text-primary">$3.49</p></article></li>
+                  <li><article class="flex items-end justify-between border-b border-surface-variant pb-sm"><div><h3 class="font-headline-md text-headline-md text-on-background">Onion Rings</h3><p class="max-w-[80%] font-body-md text-body-md text-on-surface-variant">Beer-battered onion rings served crisp.</p></div><p class="font-price-display text-price-display text-primary">$4.49</p></article></li>
+                </ul>
+              </section>
+              <section aria-labelledby="drinksHeading">
+                <h2 id="drinksHeading" class="mb-md border-b-2 border-primary pb-sm font-display-lg text-display-lg text-primary">Drinks</h2>
+                <ul class="space-y-md">
+                  <li><article class="flex items-end justify-between border-b border-surface-variant pb-sm"><div><h3 class="font-headline-md text-headline-md text-on-background">Bottled Water</h3><p class="max-w-[80%] font-body-md text-body-md text-on-surface-variant">Chilled bottled water.</p></div><p class="font-price-display text-price-display text-primary">$1.99</p></article></li>
+                  <li><article class="flex items-end justify-between border-b border-surface-variant pb-sm"><div><h3 class="font-headline-md text-headline-md text-on-background">Coke</h3><p class="max-w-[80%] font-body-md text-body-md text-on-surface-variant">Classic Coca-Cola served chilled.</p></div><p class="font-price-display text-price-display text-primary">$2.49</p></article></li>
+                  <li><article class="flex items-end justify-between border-b border-surface-variant pb-sm"><div><h3 class="font-headline-md text-headline-md text-on-background">Sprite</h3><p class="max-w-[80%] font-body-md text-body-md text-on-surface-variant">Crisp lemon-lime soda served chilled.</p></div><p class="font-price-display text-price-display text-primary">$2.49</p></article></li>
+                  <li><article class="flex items-end justify-between border-b border-surface-variant pb-sm"><div><h3 class="font-headline-md text-headline-md text-on-background">Ginger Ale</h3><p class="max-w-[80%] font-body-md text-body-md text-on-surface-variant">Refreshing ginger ale served chilled.</p></div><p class="font-price-display text-price-display text-primary">$2.49</p></article></li>
+                </ul>
+              </section>
+              <p class="rounded-xl bg-surface-container p-sm text-center font-label-bold text-label-bold text-on-surface-variant">A 10% tax will be added to your order.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Conversation history and recording controls. -->
+        <section id="order" class="flex h-[700px] flex-col gap-md overflow-hidden md:col-span-5" aria-labelledby="conversationHeading">
+          <article id="chatContainerWrapper" class="flex flex-1 flex-grow flex-col overflow-hidden rounded-xl border-2 border-transparent bg-surface-container-lowest shadow-[0_4px_20px_rgba(1,45,29,0.08)] transition-colors duration-300">
+            <header class="flex items-center gap-sm bg-surface-container p-sm">
+              <span class="material-symbols-outlined text-primary" aria-hidden="true">forum</span>
+              <h2 id="conversationHeading" class="font-headline-md text-headline-md text-primary">Order Conversation</h2>
+            </header>
+            <ol id="chatHistory" class="flex flex-1 flex-col gap-sm overflow-y-auto p-md" aria-live="polite" aria-relevant="additions"></ol>
+          </article>
+
+          <footer class="relative flex flex-shrink-0 items-center justify-center overflow-hidden rounded-xl bg-surface-container-lowest p-md shadow-[0_4px_20px_rgba(1,45,29,0.08)]">
+            <button id="recordBtn" class="group flex h-[72px] w-full items-center justify-center gap-sm rounded-full bg-primary text-on-primary shadow-md transition-all duration-300 hover:bg-surface-tint active:scale-95 disabled:cursor-wait disabled:opacity-70" type="button" aria-pressed="false">
+              <span id="recordIcon" class="material-symbols-outlined text-[32px] [font-variation-settings:'FILL'_1]" aria-hidden="true">mic</span>
+              <span id="recordText" class="font-headline-md text-headline-md">Tap to Order</span>
+            </button>
+          </footer>
+        </section>
+      </div>
+    </main>
+
+    <!-- Mobile navigation keeps the main kiosk actions within thumb reach. -->
+    <nav class="fixed bottom-0 z-50 flex h-24 w-full items-center justify-around rounded-t-xl bg-surface-container px-margin-edge py-base shadow-[0_-4px_20px_rgba(0,0,0,0.1)] dark:bg-surface-container-low md:hidden" aria-label="Kiosk navigation">
+      <button class="flex flex-col items-center justify-center rounded-full bg-primary-container px-6 py-2 text-on-primary-container transition-all duration-200 active:scale-95" type="button" data-mobile-action="menu" aria-current="page"><span class="material-symbols-outlined" aria-hidden="true">menu_book</span><span class="mt-xs font-label-bold text-label-bold">Menu</span></button>
+      <button class="flex flex-col items-center justify-center p-2 text-on-secondary-container transition-all duration-200 hover:bg-secondary-container active:scale-95 dark:hover:bg-secondary-fixed-dim" type="button" data-mobile-action="order"><span class="material-symbols-outlined" aria-hidden="true">shopping_cart</span><span class="mt-xs font-label-bold text-label-bold">Order</span></button>
+      <button class="flex flex-col items-center justify-center p-2 text-on-secondary-container transition-all duration-200 hover:bg-secondary-container active:scale-95 dark:hover:bg-secondary-fixed-dim" type="button" data-dialog-target="helpDialog"><span class="material-symbols-outlined" aria-hidden="true">support_agent</span><span class="mt-xs font-label-bold text-label-bold">Assistance</span></button>
+    </nav>
+
+    <!-- Native dialogs provide keyboard-accessible help and preferences. -->
+    <dialog id="helpDialog" class="w-[min(90vw,32rem)] rounded-xl bg-surface-container-lowest p-0 text-on-background shadow-2xl backdrop:bg-primary/40">
+      <section class="p-md" aria-labelledby="helpHeading"><header class="mb-md flex items-center justify-between"><h2 id="helpHeading" class="font-headline-md text-headline-md text-primary">How to order</h2><button class="rounded-full p-2 hover:bg-surface-variant" type="button" data-dialog-close aria-label="Close help"><span class="material-symbols-outlined" aria-hidden="true">close</span></button></header><p class="font-body-lg text-body-lg">Tap to Order, say what you would like, then tap Done Ordering. You can ask about ingredients, prices, or menu recommendations.</p></section>
+    </dialog>
+    <dialog id="settingsDialog" class="w-[min(90vw,32rem)] rounded-xl bg-surface-container-lowest p-0 text-on-background shadow-2xl backdrop:bg-primary/40">
+      <section class="p-md" aria-labelledby="settingsHeading"><header class="mb-md flex items-center justify-between"><h2 id="settingsHeading" class="font-headline-md text-headline-md text-primary">Settings</h2><button class="rounded-full p-2 hover:bg-surface-variant" type="button" data-dialog-close aria-label="Close settings"><span class="material-symbols-outlined" aria-hidden="true">close</span></button></header><label class="flex items-center justify-between gap-md font-body-lg text-body-lg" for="speechEnabled"><span>Speak assistant responses</span><input id="speechEnabled" class="h-6 w-6 rounded border-outline text-primary focus:ring-primary" type="checkbox" checked></label></section>
+    </dialog>
+
+    <script type="module" src="js/kiosk.js"></script>
+  </body>
+</html>

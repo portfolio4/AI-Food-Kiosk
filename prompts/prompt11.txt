@@ -1,0 +1,22 @@
+Right now, it takes a few seconds before any commited_text gets logged.
+I can only run on CPU right now, and prefer to only use 1 thread.
+Are there any parameters to yamabiko-whisper I can tune to make it
+produce committed_text faster?
+
+-----------------------------------------
+
+Let's try reducing PROCESS_INTERVAL_SAMPLES to 8000 and lower buffer_trimming_sec to something smaller.
+Do you think 2 seconds would be reasonable?
+
+-----------------------------------------
+
+I reverted those changes. They didn't seem to speed up the time to get committed_text.
+It's still taking like 5 seconds before committed_text shows up. Can you explain why that is?
+
+-----------------------------------------
+
+Can we also download the ggml-tiny.en.bin model and see if that improves things?
+And also tell the Whisper model explicitly that the language is English
+
+-----------------------------------------
+

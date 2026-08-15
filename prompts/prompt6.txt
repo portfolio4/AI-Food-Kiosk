@@ -1,0 +1,26 @@
+We should stop using the MediaRecorder and sending over a DataChannel.
+Instead, we should send RTP packets containing the pure Opus payloads
+over a WebRTC AudioTrack.
+
+Update the frontend to stop using MediaRecorder.
+The SimpleRTCClient should no longer createDataChannel() and instead
+addTrack()
+
+The frontend should keep a single track for the entire session.
+Use replaceTrack(track) when the user starts to record and
+replaceTrack(null) when the user stops the recording.
+This should ensure no data is sent to the server when the user is not speaking.
+
+Update the backend to stop operating on DataChannelMessage with MessageHandler.
+Instead, it should have an AudioTrackHandler where the intent is the handler
+runs
+
+```
+while let Ok((rtp_packet, _attributes)) = track.read(&mut b).await {
+```
+
+forever.
+
+For debugging purposes, have the backend continue printing out the number of
+bytes it has received
+

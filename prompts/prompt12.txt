@@ -1,0 +1,32 @@
+In backend/src/main.rs , we want to refactor the yamabiko-whisper logic
+into a crate for modularity and code clarity.
+
+Create a simple_stt crate (stt stands for "speech to text")
+with a STTDecoder. It's constructor should take a Config struct with the
+following parameters:
+- language, e.g. "en"
+- whispser_model_path, e.g. "models/ggml-tiny.en.bin"
+- vad_model_path, e.g. "models/ggml-silero-v6.2.0.bin"
+- whisper_sample_rate , defaults to 16_000
+- max_opus_frame_samples, defaults to 1920
+
+STTDecoder should have the following functions:
+
+- Stream() - takes the rtp_buffer bytes, calls decoder.decode_float() on them,
+extends the pending_pcm buffer, and once the whisper_sample_rate is exceeded,
+feeds it into the whisper model. Returns tentative_text and committed_text if
+there is any.
+
+Then have main.rs constantly read from the RTC AudioTrack and feed into
+STTDecoder.Stream(). main.rs should buffer the committed_text in a vector.
+If there is ever 5 seconds worth of no committed text and no tentative_text,
+then print out all the buffered committed_text and then clear the buffer.
+
+------------------------------------
+
+Change the STTDecoder to stop using a Config struct and instead use the Rust
+builder pattern
+
+------------------------------------
+
+Every time we push to commited_text, print "buffered_commited_text:" plus the text you just buffered. Then after the TEXT_IDLE_TIMEOUT, keep the full print of the committed text as is

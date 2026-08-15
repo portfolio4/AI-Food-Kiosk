@@ -1,0 +1,3 @@
+Add another function stream() to webrtc.js that the caller calls with their audio track.
+stream() will check if not connected, then call connect(audioTrack) , else it calls
+replaceTrack(audioTrack)

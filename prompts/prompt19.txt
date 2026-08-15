@@ -1,0 +1,18 @@
+Let's improve the UI further.
+
+1. At the start, the Order Conversation window should have no chats.
+2. The "Tap to Record" button should be changed to "Tap to Order".
+3. When the user clicks "Tap to Order", the default "Hi there! What can I get started..."
+message should appear automatically and speak() to the user.
+4. Furthermore, frontend should send a {"msg_type": "next_customer"} message to the via websocket.
+When the backend receives this message, it should issue the "[NEXT_CUSTOMER]" command to the AI agent.
+5. "Stop Recording" should change to "Done Ordering"
+
+--------------------------------------------
+
+In ../frontend/js/speak.js , can we remove any '*' characters from the speech. And if something matches a dollar value, like "$12.48", please replace that text with "12 dollars 48
+  cents"
+
+--------------------------------------------
+
+In frontend/js/speak.js , update it to say "12 dollars and 48 cents" instead of just "12 dollars 48 cents" as it is right now

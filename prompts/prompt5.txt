@@ -1,0 +1,31 @@
+High level requirements:
+
+- We are building a AI restaurant kiosk app.
+- The user speaks into the kiosk to ask questions about the menu and place an order.
+- The frontend sends the audio to the backend using webrtc.
+- The backend processes the audio bytes and uses a Codex session to generate a response to the frontend.
+- The frontend speaks the response back to the user.
+
+------------------
+
+What we've already built:
+
+We've built the Rust web-rtc server at backend/simple_rtc.
+
+We've built the web-rtc frontend client at frontend/js/webrtc.js
+
+We've built a UI with menu and record button for speaking to the AI agent at frontend/kiosk.html
+
+-------------------
+
+What to build next:
+
+Update frontend/kiosk.html and frontend/js/kiosk.js to capture user input from
+the microphone.
+
+As user input is captured (every 250ms interval), use the SimpleRTCClient to
+stream the captured bytes to the rust backend server.
+
+Update the rust backend server to stop logging the "Received message".
+Only have to log the number of received bytes now.
+

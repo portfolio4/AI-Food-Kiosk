@@ -1,0 +1,14 @@
+We want this to work with multiple clients.
+For example, in main.rs, we currently spawn just one CodexAgent.
+Instead, we should spawn a new CodexAgent for every RealtimeSession.
+And the AudioTrack handling should directly access its RealtimeSession's agent.
+Please also investigate if any other parts of the codebase need to change
+so that multiple clients can be simultaneously connected.
+
+---------------------------------
+
+We don't have enough resources to load the STTDecoder model twice. So in src/main.rs ,
+we need to share the STTDecoder and protect it with a mutex. That way, multiple clients'
+transcribe_audio_track functions can queue their requests.
+Only after we hit the TEXT_IDLE_TIMEOUT and commit the text,
+do we release the mutex so that the next client can start using the model

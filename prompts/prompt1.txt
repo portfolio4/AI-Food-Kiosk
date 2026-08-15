@@ -1,0 +1,27 @@
+High level requirements:
+
+- We are building a AI restaurant kiosk app.
+- The user speaks into the kiosk to ask questions about the menu and place an order.
+- The frontend sends the audio to the backend using webrtc.
+- The backend processes the audio bytes and uses a Codex session to generate a response to the frontend.
+- The frontend speaks the response back to the user.
+------------------
+
+In the backend folder, create a rust web-rtc server in a main.rs file.
+Use the crate from https://github.com/webrtc-rs/webrtc .
+
+In the same rust binary, also spawn a tokio-tungstenite server for the webrtc signaling.
+
+In the frontend folder, create a js/webrtc.js file to connect to the tokio-tungstenite
+signaling server and then the webrtc backend. You can use
+`iceServers: [{ urls: 'stun:://google.com' }]` to force the browser to use
+a standard public IP address in case there are mDNS resolution issues.
+
+For debugging purposes, have the frontend send "Hello World!" bytes and
+have the server print out what it receives.
+
+Please test your code by running the rust backend and using nodejs
+(via `nvm use node && node frontend/js/webrtc.js`) to run the
+js/webrtc.js to ensure the rust backend is capable of receiving the
+"Hello World!" bytes
+

@@ -1,0 +1,3 @@
+No text ever gets printed, can you double check there isn't an implementation mistake?
+Perhaps there is some dummy audio track we can put in to test that the calls into yamabiko and
+decoder.decode_float are correct?

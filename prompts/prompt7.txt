@@ -1,0 +1,4 @@
+Rename SimpleRTCClient to LiveAudioRTCClient and SimpleRTCServer to LiveAudioRTCServer.
+Then in the frontend, LiveAudioRTCClient, add a function pause() .
+That way, the callers do not have to do `replaceTrack(null)` and leak that implementation detail.
+replaceTrack() should only get called privately inside webrtc.js

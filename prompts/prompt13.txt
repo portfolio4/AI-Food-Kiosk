@@ -1,0 +1,77 @@
+High level requirements:
+
+- We are building a AI restaurant kiosk app.
+- The user speaks into the kiosk to ask questions about the menu and place an order.
+- The frontend sends the audio to the backend using webrtc.
+- The backend processes the audio bytes and uses a Codex session to generate a response to the frontend.
+- The frontend speaks the response back to the user.
+
+------------------
+
+What we've already built:
+
+We've built the Rust web-rtc server at backend/simple_rtc.
+
+We've built the web-rtc frontend client at frontend/js/webrtc.js
+
+We've built a UI with menu and record button for speaking to the AI agent at frontend/kiosk.html
+
+We've gotten the frontend to stream live audio encoded in Opus format to the
+rust backend via AudioTrack.
+
+We've coded the backend to decode the audio bytes from the frontend and convert
+to text.
+
+-------------------
+
+What to build next:
+
+We need to add a new websocket connection for standard web server stuff.
+
+On the rust server side, wait for new websocket connections at a /realtime endpoint.
+
+On the frontend, add a RealtimeClient class to a frontend/js/realtime.js file.
+This will connect to the rust server backend when it is constructed.
+It will have an onmessage variable that the user can set to to handle messages
+from the server. It will also have a send() function so the user can send
+messages to the server.
+
+Then we have the following data flows:
+
+- On startup, take a `clientId` as the current epoch time in seconds. And add
+a comment that once there are accounts, we'd use the ID as the user's unique account ID.
+- Right after connecting, the frontend sends a {"msg_type": "login", "client_id": "<clientId>"}.
+The backend will then associate that ID with this realtime websocket session
+and send back {"msg_type": "success"}
+- After the login is successful, the frontend sends the webrtc signaling
+message over the signaling websocket (already implemented), but it should add a
+"client_id" field to the JSON so that the backend server knows
+all data received on this audio track is associated with which particular
+realtime websocket session.
+- On the backend, in addition to printing the buffered_committed_text,
+we should send {"msg_type": "buffered_committed_text", "text": <buffered_committed_text>}
+to the frontend via the correct realtime websocket session (we just explained
+how to do the mapping from audio track to realtime websocket session above).
+The frontend will then append the buffered committed_text into a text bubble
+in the "Order Conversation" window.
+- On the backend, in addition to printing the committed_text, we should send
+{"msg_type": "committed_text"} and that will commit the text bubble to the
+Order Conversation Window. Any new buffered_committed_text will be appended to
+a new text bubble moving forward.
+
+Overall, now, as the user speaks, they will see the words they spoke get added
+to the "Order Conversation" window
+
+----------------------------
+
+In ../frontend/js/webrtc.js , we do `const description = localDescription.toJSON?.() ?? localDescription;`.
+Is it standard practice to check if the toJSON function exists or not?
+We should already know what type localDescription will be in the code, so can you just pick the correct approach?
+
+----------------------------
+
+In frontend/js/kiosk.js , when you create the new RealtimeClient and LiveAudioRTCClient, can you explicitly label the clientId parameter with `clientId: clientId`?
+
+----------------------------
+
+

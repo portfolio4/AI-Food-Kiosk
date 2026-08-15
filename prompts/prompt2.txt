@@ -1,0 +1,13 @@
+Let's clean up the backend code.
+
+In the backend, can we add a simple_rtc crate and move the handle_connection()
+stuff there.
+
+We'll have a SimpleRtcServer struct.
+
+The new() constructor takes all the properties like signaling_address
+and a handler function that will be passed to channel.on_message() down the line.
+
+SimpleRtcServer then has a run() function that spawns the async thread and runs
+until the application is killed.
+

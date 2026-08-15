@@ -1,0 +1,25 @@
+In frontend/js/speak.js , let's add a
+BrowserSpeaker and see if we can get one of the premium, cloud-based neural voices
+loaded.
+
+Make sure to listen to the onvoiceschanged event before loading the new
+voices.
+
+Furthermore, to make the speech more natural:
+- lower the pitch to 0.9
+- split by sentence
+- replace commas with "..."
+
+Then update frontend/js/kiosk.html to use the new BrowserSpeaker instead of
+KokoroSpeaker
+
+-----------------------
+
+Okay, we can delete KokoroSpeaker now because the changes we just did were a significant improvement.
+
+-----------------------
+
+In js/speak.js , document that the default browser voices are terrible and all
+the workarounds we did such as looking for premium voices, changing the pitch/rate,
+replacing commas with elipses, and splitting by sentence
+

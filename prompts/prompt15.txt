@@ -1,0 +1,6 @@
+Let's improve the UI now.
+Currently, after the user clicks "Tap to Record", a bubble pops up with "..."
+and it flashes. As long as the latest bubble is not yet committed, please keep
+a "..." at the end of all the buffered text and keep the bubble flashing.
+Once the bubble is committed, we can stop the flashing and remove the "..."
+

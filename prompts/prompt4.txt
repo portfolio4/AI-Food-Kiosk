@@ -1,0 +1,44 @@
+High level requirements:
+
+- We are building a AI restaurant kiosk app.
+- The user speaks into the kiosk to ask questions about the menu and place an order.
+- The frontend sends the audio to the backend using webrtc.
+- The backend processes the audio bytes and uses a Codex session to generate a response to the frontend.
+- The frontend speaks the response back to the user.
+
+------------------
+
+What we've already built:
+
+We've already built the Rust web-rtc server at backend/simple_rtc.
+
+We've already built the web-rtc frontend client at frontend/js/webrtc.js
+
+-------------------
+
+What to build next:
+
+At frontend/stitch.html , I pasted a prototype UI for the kiosk.
+
+Please refactor and convert this code into clean, semantic, readable
+production-ready HTML5 and modern vanilla JavaScript (ES6+).
+Put the new frontend at frontend/kiosk.html
+
+Follow these rules strictly:
+
+1. HTML STRUCTURE: Replace generic nested <div> tags with proper semantic tags
+(<header>, <nav>, <main>, <section>, <article>, <footer>) where appropriate.
+Ensure valid hierarchy and clean indentation.
+
+2. TAILWIND CSS: Keep the Tailwind CSS utility classes intact for styling,
+but organize the class lists logically (layout -> spacing -> typography -> visual/colors).
+If any hardcoded inline styles exist, convert them to Tailwind utility classes.
+
+3. JAVASCRIPT BEHAVIOR: Identify interactive elements in the UI
+(such as mobile menus, toggles, modals, tabs, or dropdowns) and write clean,
+modular vanilla JavaScript inside a js/kiosk.js file to make them fully functional.
+
+4. READABILITY: Add concise comments explaining major layout blocks and the
+functionality of the JavaScript event listeners.
+Do not strip out responsive modifier prefixes (sm:, md:, lg:).
+

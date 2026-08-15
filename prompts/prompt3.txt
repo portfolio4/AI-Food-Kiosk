@@ -1,0 +1,20 @@
+Let's rename SimpleRtcServer -> SimpleRTCServer.
+
+Then, let's clean up the frontend code in frontend/js/webrtc.js.
+
+We should create a SimpleRTCClient class. Move all the free-floating
+variables like `websocket` and `dataChannel` in there.
+In the constructor, allow the caller to specify the data channel name
+(currently it is hardcoded to "kiosk-audio"), and other hardcoded
+values like SIGNALING_URL and iceServers.
+
+Create an async connect() function that attempts the connection.
+
+Then expose a send() function to send over the dataChannel
+and onmessage property that the user can set to process responses from the
+webrtc server.
+
+For testing, at the end of the file at the global scope, create an instance
+of the SimpleRTCClient, run the async connect() until it finishes, and then
+call send() with "Hello World!"
+

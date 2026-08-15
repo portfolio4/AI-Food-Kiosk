@@ -1,0 +1,33 @@
+Build the frontend for an AI voice ordering kiosk at a restaurant.
+
+At the top of the screen, we display a menu pdf.
+
+Below that is a text box, that we'll call the "conversation box".
+
+Below that is a "record" button that the user clicks when they're ready to start ordering by speaking into a microphone. As the user speaks, the words they speak will be typed out into the conversation box. You don't have to implement the speech-to-text functionality, just mock it out with some dummy text.
+
+When the user clicks the "record" button, it turns into a "stop record" button with a red box. Once the user is done speaking, they click the "stop record" button.
+
+Then the response from the server backend should display in the conversation box. You can stub out the server response for now.
+Read the response back to the user with browser's native text-to-speech functionality.
+
+-------------------------
+
+The order conversation box should have a maximum size and start scrolling instead if the conversation gets too long.
+
+-------------------------
+
+Make the conversation box and "tap to record" button take up the same amount of vertical space as the menu
+
+-------------------------
+
+As more conversations get added to the conversation box, the UI starts to expand vertically. Stop this from happening and make conversation box start to scroll instead
+
+-------------------------
+
+Make the order conversation box longer vertically, such that the bottom of the "Tap to Record" section lines up with the bottom of the menu
+
+-------------------------
+
+The UI needs to be split into a grid layout with 2 columns. The first left-side element is a div containing the the menu. The second right-side element is a div containing the "order conversation" and "tap to record" button. This ensure both the left side and the right side are balanced and have the same height.  Within the right-side element, the "Order Conversation" box should fill up an extra space - however, as more messages get added to the conversation, the box should scroll and not expand more vertically
+
